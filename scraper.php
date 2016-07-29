@@ -10,7 +10,31 @@ $dom = new simple_html_dom();
 $dom->load($html);
 
    $info['doc_name'] = $dom->find('span[id=Name]')->plaintext;
-echo $info;
-
-
+   $info['doc_fname'] = $dom->find('span[id="FatherName"]')->plaintext;
+   $info['doc_dob'] = $dom->find('span[id="DOB"]')->plaintext;
+   $info['doc_infoyear'] = $dom->find('span[id="lbl_Info"]')->plaintext;
+   $info['doc_regnum'] = $dom->find('span[id="Regis_no"]')->plaintext;
+   $info['doc_datereg'] = $dom->find('span[id="Date_Reg"]')->plaintext;
+   $info['doc_council'] = $dom->find('span[id="Lbl_Council"]')->plaintext;
+   $info['doc_qual'] = $dom->find('span[id="Qual"]')->plaintext;
+   $info['doc_qualyear'] = $dom->find('span[id="QualYear"]')->plaintext;
+   $info['doc_univ'] = $dom->find('span[id="Univ"]')->plaintext;
+   $info['doc_address'] = $dom->find('span[id="Address"]')->plaintext;
+   scraperwiki::save_sqlite(array('mci_snum','registration_number'), 
+   array('mci_snum' => $id, 
+          'name' => (trim($info['doc_name'])), 
+          'fathers_name' => (trim($info['doc_fname'])),
+          'date_of_birth' => (trim($info['doc_dob'])),
+          'information_year' => (trim($info['doc_infoyear'])),
+          'registration_number' => (trim($info['doc_regnum'])),
+          'date_of_reg' => (trim($info['doc_datereg'])),
+          'council' => (trim($info['doc_council'])),
+          'qualifications' => (trim($info['doc_qual'])),
+          'qualification_year' => (trim($info['doc_qualyear'])),
+          'permanent_address' => (trim($info['doc_address']))
+    ));
+    
+  //clean out the dom
+  $dom->__destruct();
+}
 ?>
