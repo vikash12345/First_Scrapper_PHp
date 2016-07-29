@@ -8,6 +8,9 @@ $html_content = scraperwiki::scrape("http://www.mciindia.org/ViewDetails.aspx?ID
 $html = str_get_html($html_content);
 $dom = new simple_html_dom();
 $dom->load($html);
-echo $dom;
+
+   $info['doc_name'] = $dom->find('span[id=Name]')->plaintext;
+echo $info;
+
 
 ?>
