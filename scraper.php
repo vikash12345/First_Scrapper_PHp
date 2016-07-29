@@ -1,14 +1,20 @@
-<?php
+<?
+// This is a template for a PHP scraper on morph.io (https://morph.io)
+// including some code snippets below that you should find helpful
 require 'scraperwiki.php';
-require 'scraperwiki/simple_html_dom.php'; 
-$MAX_ID = 3;
-
-
-$html_content = scraperwiki::scrape("http://www.mciindia.org/ViewDetails.aspx?ID=".$id"); 
-$html = str_get_html($html_content);
-$dom = new simple_html_dom();
-$dom->load($html);
-
+require 'scraperwiki/simple_html_dom.php';
+//
+$MAX_ID = 3; //set based on required maximum numbers
+/** looping over list of ids of doctors **/
+for($id = 1; $i <= $MAX_ID; $id++)
+{
+  // // Read in a MCI doctor page
+    $html = scraperwiki::scrape("http://www.mciindia.org/ViewDetails.aspx?ID=".$id);
+  // Find something on the page using css selectors
+   $dom = new simple_html_dom();
+   $dom->load($html);
+   
+   // walk through the dom and extract doctor information
    $info['doc_name'] = $dom->find('span[id=Name]')->plaintext;
    $info['doc_fname'] = $dom->find('span[id="FatherName"]')->plaintext;
    $info['doc_dob'] = $dom->find('span[id="DOB"]')->plaintext;
@@ -20,8 +26,8 @@ $dom->load($html);
    $info['doc_qualyear'] = $dom->find('span[id="QualYear"]')->plaintext;
    $info['doc_univ'] = $dom->find('span[id="Univ"]')->plaintext;
    $info['doc_address'] = $dom->find('span[id="Address"]')->plaintext;
-   scraperwiki::save_sqlite(array('mci_snum','registration_number'), 
-   array('mci_snum' => $id, 
+ scraperwiki::save_sqlite(array('mci_snum','registration_number'), 
+    array('mci_snum' => $id, 
           'name' => (trim($info['doc_name'])), 
           'fathers_name' => (trim($info['doc_fname'])),
           'date_of_birth' => (trim($info['doc_dob'])),
