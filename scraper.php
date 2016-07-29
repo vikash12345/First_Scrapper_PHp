@@ -38,7 +38,7 @@ for($id = 1; $i <= $MAX_ID; $id++)
           'qualifications' => (trim($info['doc_qual'])),
           'qualification_year' => (trim($info['doc_qualyear'])),
           'permanent_address' => (trim($info['doc_address']))
-    ));
+    );
     
   //clean out the dom
   $dom->__destruct();
