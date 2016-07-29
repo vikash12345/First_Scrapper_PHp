@@ -10,6 +10,7 @@ for($id = 1; $id <= $MAX_ID; $id++)
       
         $dom = new simple_html_dom();
         $dom->load($html);
+        print_r($dom); die;
 
 
    $info['doc_name'] = $dom->find('span[id=Name]')->plaintext;
@@ -36,23 +37,13 @@ for($id = 1; $id <= $MAX_ID; $id++)
           'qualifications' => (trim($info['doc_qual'])),
           'qualification_year' => (trim($info['doc_qualyear'])),
           'permanent_address' => (trim($info['doc_address']))
-    );
+    ));
     
   //clean out the dom
   $dom->__destruct();
 }
-
-  }
-
+}
 
 
-
-
-
-
-// scraperwiki::save_sqlite(array('name'), array('name' => 'susan', 'occupation' => 'software developer'));
-//
-// // An arbitrary query against the database
-// scraperwiki::select("* from data where 'name'='peter'")
 
 ?>
